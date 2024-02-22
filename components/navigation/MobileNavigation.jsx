@@ -47,14 +47,7 @@ function MobileNavigation({
             <ListItem>
               <Link href={'/'} passHref style={itemLinkStyles}>
                 <ListItemButton sx={{ textAlign: 'left' }}>
-                  <ListItemText primary={'Shop'} />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href={'/blog'} passHref style={itemLinkStyles}>
-                <ListItemButton sx={{ textAlign: 'left' }}>
-                  <ListItemText primary={'Blog'} />
+                  <ListItemText primary={'Home'} />
                 </ListItemButton>
               </Link>
             </ListItem>
