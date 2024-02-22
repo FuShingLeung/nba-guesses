@@ -4,8 +4,6 @@ import { Inter } from 'next/font/google';
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export default function SingleGame() {
   return (
     <>
