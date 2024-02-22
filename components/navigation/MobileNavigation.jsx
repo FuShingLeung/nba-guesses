@@ -59,9 +59,9 @@ function MobileNavigation({
               </Link>
             </ListItem>
             <ListItem>
-              <Link href={'/contact'} passHref style={itemLinkStyles}>
+              <Link href={'/games'} passHref style={itemLinkStyles}>
                 <ListItemButton sx={{ textAlign: 'left' }}>
-                  <ListItemText primary={'Contact Us'} />
+                  <ListItemText primary={'Games'} />
                 </ListItemButton>
               </Link>
             </ListItem>
