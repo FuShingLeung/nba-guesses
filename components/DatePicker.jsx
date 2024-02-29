@@ -8,19 +8,21 @@ import {
   LocalizationProvider,
   DatePicker,
 } from '@/components/mui';
+import { format } from 'path';
 
 function BasicDatePicker({ dateChange, date }) {
-  const newDateChange = (date) => {
-    dateChange(date);
+  const handleDateChange = (newDate) => {
+    // const formattedDate = dayjs(newDate).format('YYYY-MM-DD');
+    dateChange(newDate);
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        label="Controlled picker"
+        label="Date Picker"
         value={date}
         format="YYYY-MM-DD"
-        onChange={newDateChange}
+        onChange={handleDateChange}
       />
     </LocalizationProvider>
   );

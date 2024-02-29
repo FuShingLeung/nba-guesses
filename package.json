@@ -19,6 +19,7 @@
     "DatePicker": "link:@mui/x-date-pickers/DatePicker",
     "LocalizationProvider": "link:@mui/x-date-pickers/LocalizationProvider",
     "dayjs": "^1.11.10",
+    "express": "^4.18.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

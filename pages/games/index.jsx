@@ -4,14 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import dayjs from 'dayjs';
 
-import {
-  Card,
-  CardContent,
-  LocalizationProvider,
-  AdapterDayjs,
-  List,
-  ListItem,
-} from '@/components/mui';
+import { Card, CardContent, List, ListItem } from '@/components/mui';
 
 import BasicDatePicker from '@/components/DatePicker';
 
@@ -20,43 +13,34 @@ import Heading from '@/components/Heading';
 
 const { BALLDONTLIE_ENDPOINT, BALLDONTLIE_API_KEY } = process.env;
 
-const gamesEndpoint = 'https://api.balldontlie.io/v1/games';
-
 export default function Games({ ssd = [] }) {
+  const [listOfGames, setListOfGames] = useState(ssd);
+
   const [date, setDate] = useState(dayjs(new Date()));
-  const newDateChange = (date) => {
+
+  const fetchGames = async (date) => {
     setDate(date);
+
+    try {
+      const formattedDate = date.format('YYYY-MM-DD');
+
+      const response = await fetch(
+        `/api/games/fetchGames?date=${formattedDate}`,
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      setListOfGames(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
-  // const getGamesOnDate = useCallback((getGames) => {
-  //   getGames = async () => {
-  //     await fetch(`${BALLDONTLIE_ENDPOINT}games`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': `application/json; charset="UTF-8`,
-  //         Authorization: BALLDONTLIE_API_KEY,
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .catch((err) => console.log(err));
-  //   };
-  // });
-
-  // useEffect(() => {
-  //   fetch('https://api.balldontlie.io/v1/games?dates[]=2024-03-02', {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: '11c59173-446b-402c-bc3e-f5e5e0087e37',
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .catch((err) => console.log(err))
-  //     .then((data) => {
-  //       setGames(data.data);
-  //     }),
-  //     console.log(games);
-  //   console.log('test');
-  // });
+  const handleDateChange = (date) => {
+    fetchGames(date);
+  };
 
   return (
     <>
@@ -68,18 +52,26 @@ export default function Games({ ssd = [] }) {
       </Head>
       <Layout>
         <Heading>Games</Heading>
-        <BasicDatePicker dateChange={newDateChange} date={date} />
+        <BasicDatePicker dateChange={handleDateChange} date={date} />
         <List component={'ol'} sx={{ listStyle: 'none' }}>
-          {ssd.map(({ id, date, home_team, visitor_team }) => (
-            <ListItem key={id}>
+          {listOfGames.length > 0 ? (
+            listOfGames.map(({ id, date, home_team, visitor_team }) => (
+              <ListItem key={id}>
+                <Card component="article" sx={{ width: '100%' }}>
+                  <Heading component="h2" variant="h3">
+                    {home_team.full_name} vs {visitor_team.full_name}
+                  </Heading>
+                  <CardContent>{date}</CardContent>
+                </Card>
+              </ListItem>
+            ))
+          ) : (
+            <ListItem>
               <Card component="article" sx={{ width: '100%' }}>
-                <Heading component="h2" variant="h3">
-                  {home_team.full_name} vs {visitor_team.full_name}
-                </Heading>
-                <CardContent>{date}</CardContent>
+                <CardContent>No games found</CardContent>
               </Card>
             </ListItem>
-          ))}
+          )}
         </List>
       </Layout>
     </>
