@@ -2,16 +2,23 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import { useState, useEffect, useCallback } from 'react';
 
+import {
+  Card,
+  CardContent,
+  DatePicker,
+  List,
+  ListItem,
+} from '@/components/mui';
+
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
 
-const BALLDONTLIE_API_KEY = process.env.BALLDONTLIE_API_KEY;
+const { BALLDONTLIE_ENDPOINT, BALLDONTLIE_API_KEY } = process.env;
 
 const gamesEndpoint = 'https://api.balldontlie.io/v1/games';
 
-export default function Games() {
-  const [games, setGames] = useState({});
-
+export default function Games({ ssd = [] }) {
+  console.log(ssd);
   // const getGamesOnDate = useCallback((getGames) => {
   //   getGames = async () => {
   //     await fetch(`${BALLDONTLIE_ENDPOINT}games`, {
@@ -26,21 +33,21 @@ export default function Games() {
   //   };
   // });
 
-  useEffect(() => {
-    fetch('https://api.balldontlie.io/v1/games', {
-      method: 'GET',
-      headers: {
-        Authorization: BALLDONTLIE_API_KEY,
-      },
-    })
-      .then((res) => res.json())
-      .catch((err) => console.log(err))
-      .then((data) => {
-        console.log(data);
-      }),
-      console.log(games);
-    console.log('test');
-  });
+  // useEffect(() => {
+  //   fetch('https://api.balldontlie.io/v1/games?dates[]=2024-03-02', {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: '11c59173-446b-402c-bc3e-f5e5e0087e37',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .catch((err) => console.log(err))
+  //     .then((data) => {
+  //       setGames(data.data);
+  //     }),
+  //     console.log(games);
+  //   console.log('test');
+  // });
 
   return (
     <>
@@ -52,7 +59,37 @@ export default function Games() {
       </Head>
       <Layout>
         <Heading>Games</Heading>
+        <List component={'ol'} sx={{ listStyle: 'none' }}>
+          {ssd.map(({ id, date, home_team, visitor_team }) => (
+            <ListItem key={id}>
+              <Card component="article" sx={{ width: '100%' }}>
+                <Heading component="h2" variant="h3">
+                  {home_team.full_name} vs {visitor_team.full_name}
+                </Heading>
+                <CardContent>{date}</CardContent>
+              </Card>
+            </ListItem>
+          ))}
+        </List>
       </Layout>
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const gamesToday = await fetch(`${BALLDONTLIE_ENDPOINT}games`, {
+    method: 'GET',
+    headers: {
+      Authorization: BALLDONTLIE_API_KEY,
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+  const games = gamesToday.data;
+  console.log(games);
+  return {
+    props: {
+      ssd: games,
+    },
+  };
+};

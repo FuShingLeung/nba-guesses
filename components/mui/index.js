@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
@@ -41,6 +42,7 @@ export {
   CardActions,
   CircularProgress,
   Container,
+  DatePicker,
   Drawer,
   Divider,
   List,
