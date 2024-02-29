@@ -1,14 +1,19 @@
 import Head from 'next/head';
-import { Inter } from 'next/font/google';
+import { Basic, Inter } from 'next/font/google';
 import { useState, useEffect, useCallback } from 'react';
+
+import dayjs from 'dayjs';
 
 import {
   Card,
   CardContent,
-  DatePicker,
+  LocalizationProvider,
+  AdapterDayjs,
   List,
   ListItem,
 } from '@/components/mui';
+
+import BasicDatePicker from '@/components/DatePicker';
 
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
@@ -18,7 +23,11 @@ const { BALLDONTLIE_ENDPOINT, BALLDONTLIE_API_KEY } = process.env;
 const gamesEndpoint = 'https://api.balldontlie.io/v1/games';
 
 export default function Games({ ssd = [] }) {
-  console.log(ssd);
+  const [date, setDate] = useState(dayjs(new Date()));
+  const newDateChange = (date) => {
+    setDate(date);
+  };
+
   // const getGamesOnDate = useCallback((getGames) => {
   //   getGames = async () => {
   //     await fetch(`${BALLDONTLIE_ENDPOINT}games`, {
@@ -59,6 +68,7 @@ export default function Games({ ssd = [] }) {
       </Head>
       <Layout>
         <Heading>Games</Heading>
+        <BasicDatePicker dateChange={newDateChange} date={date} />
         <List component={'ol'} sx={{ listStyle: 'none' }}>
           {ssd.map(({ id, date, home_team, visitor_team }) => (
             <ListItem key={id}>
@@ -77,16 +87,19 @@ export default function Games({ ssd = [] }) {
 }
 
 export const getStaticProps = async () => {
-  const gamesToday = await fetch(`${BALLDONTLIE_ENDPOINT}games`, {
-    method: 'GET',
-    headers: {
-      Authorization: BALLDONTLIE_API_KEY,
+  const dateToday = dayjs(new Date()).format('YYYY-MM-DD');
+  const gamesToday = await fetch(
+    `${BALLDONTLIE_ENDPOINT}games?dates[]=${dateToday}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: BALLDONTLIE_API_KEY,
+      },
     },
-  })
+  )
     .then((res) => res.json())
     .catch((err) => console.log(err));
   const games = gamesToday.data;
-  console.log(games);
   return {
     props: {
       ssd: games,
