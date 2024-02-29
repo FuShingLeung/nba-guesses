@@ -1,31 +1,27 @@
 import React from 'react';
+import { List, ListItem, Card, CardContent } from '@/components/mui';
+import GameListItem from './GameListItem';
 
-import { Card, CardContent, List, ListItem } from '@/components/mui';
-
-import Heading from '@/components/Heading';
-
-function GameList({ listOfGames }) {
-  console.log(listOfGames);
-  return (
-    <List component={'ol'} sx={{ listStyle: 'none' }}>
-      {listOfGames.length > 0 ? (
-        listOfGames.map(({ id, date, home_team, visitor_team }) => (
-          <ListItem key={id}>
-            <Card component="article" sx={{ width: '100%' }}>
-              <Heading component="h2" variant="h3">
-                {home_team.full_name} vs {visitor_team.full_name}
-              </Heading>
-              <CardContent>{date}</CardContent>
-            </Card>
-          </ListItem>
-        ))
-      ) : (
+function GameList({ listOfGames, handleSubmit }) {
+  const renderGameListItems = () => {
+    if (listOfGames.length === 0) {
+      return (
         <ListItem>
           <Card component="article" sx={{ width: '100%' }}>
             <CardContent>No games found</CardContent>
           </Card>
         </ListItem>
-      )}
+      );
+    }
+
+    return listOfGames.map((game) => (
+      <GameListItem key={game.id} {...game} onSubmit={handleSubmit} />
+    ));
+  };
+
+  return (
+    <List component="ol" sx={{ listStyle: 'none' }}>
+      {renderGameListItems()}
     </List>
   );
 }
