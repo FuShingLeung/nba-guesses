@@ -12,7 +12,6 @@ import { format } from 'path';
 
 function BasicDatePicker({ dateChange, date }) {
   const handleDateChange = (newDate) => {
-    // const formattedDate = dayjs(newDate).format('YYYY-MM-DD');
     dateChange(newDate);
   };
 
