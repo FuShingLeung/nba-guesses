@@ -9,20 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.3",
     "@mui/material": "^5.15.3",
     "@mui/x-date-pickers": "^6.19.5",
     "@reduxjs/toolkit": "^2.2.1",
+    "@tanstack/react-query": "^5.24.1",
     "AdapterDayjs": "link:@mui/x-date-pickers/AdapterDayjs",
     "DatePicker": "link:@mui/x-date-pickers/DatePicker",
     "LocalizationProvider": "link:@mui/x-date-pickers/LocalizationProvider",
     "dayjs": "^1.11.10",
-    "express": "^4.18.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-error-boundary": "^4.0.13",
     "react-nba-logos": "^1.1.3",
     "redux": "^5.0.1"
   },

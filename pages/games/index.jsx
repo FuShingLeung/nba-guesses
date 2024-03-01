@@ -9,6 +9,9 @@ import GameList from '@/components/GameList';
 
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
+import { Grid, Typography } from '@mui/material';
+
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const { BALLDONTLIE_ENDPOINT, BALLDONTLIE_API_KEY } = process.env;
 
@@ -16,6 +19,12 @@ export default function Games({ ssd = [] }) {
   const [listOfGames, setListOfGames] = useState(ssd);
 
   const [date, setDate] = useState(dayjs(new Date()));
+
+  const { user } = useUser();
+
+  const handleSubmit = (gameId, team) => {
+    console.log(`Submitting vote for game ${gameId} - ${team}`);
+  };
 
   const fetchGames = async (date) => {
     setDate(date);
@@ -51,8 +60,13 @@ export default function Games({ ssd = [] }) {
       </Head>
       <Layout>
         <Heading>Games</Heading>
-        <BasicDatePicker dateChange={handleDateChange} date={date} />
-        <GameList listOfGames={listOfGames} />
+        {!user && <Typography>Please log in to guess</Typography>}
+        <Grid container justifyContent="center" xs={12}>
+          <gridItem xs={8}>
+            <BasicDatePicker dateChange={handleDateChange} date={date} />
+          </gridItem>
+        </Grid>
+        <GameList listOfGames={listOfGames} handleSubmit={handleSubmit} />
       </Layout>
     </>
   );

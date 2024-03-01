@@ -13,6 +13,10 @@ import Container from '@mui/material/Container';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Dialog from '@mui/material';
+import DialogTitle from '@mui/material';
+import DialogContent from '@mui/material';
+import DialogActions from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -24,6 +28,7 @@ import Radio from '@mui/material/Radio';
 import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/material';
 
@@ -51,6 +56,10 @@ export {
   DatePicker,
   AdapterDayjs,
   LocalizationProvider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Drawer,
   Divider,
   Grid,
@@ -62,6 +71,7 @@ export {
   Snackbar,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
   useTheme,
   CloseIcon,

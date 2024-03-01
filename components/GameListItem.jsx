@@ -5,11 +5,14 @@ import {
   Card,
   CardContent,
   Radio,
+  Tooltip,
   Typography,
 } from '@/components/mui';
 import dayjs from 'dayjs';
 import Heading from '@/components/Heading';
 import TeamLogo from './TeamLogo';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import LoginPopup from '@/components/LoginPopup';
 
 function GameListItem({
   id,
@@ -26,10 +29,20 @@ function GameListItem({
       : `${home_team_score} - ${visitor_team_score}`;
 
   const [selectedTeam, setSelectedTeam] = useState('');
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const { user } = useUser();
 
   const handleGuess = (team) => {
-    setSelectedTeam(team.target.value);
-    onSubmit(id, team);
+    if (!user && status !== 'Final') {
+      setShowLoginPopup(true);
+    } else {
+      setSelectedTeam(team.target.value);
+      onSubmit(id, team);
+    }
+  };
+
+  const handleClosePopup = () => {
+    setShowLoginPopup(false);
   };
 
   return (
@@ -71,6 +84,7 @@ function GameListItem({
                     value="home"
                     name={`radio-${id}`}
                     inputProps={{ 'aria-label': 'Home' }}
+                    disabled={status === 'Final' || !user}
                   />
                 </Grid>
                 <Grid item xs={2}>
@@ -81,7 +95,7 @@ function GameListItem({
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       textAlign: 'center',
-                      fontSize: 12,
+                      fontSize: status === 'Final' ? 24 : 12,
                     }}
                   >
                     {gameStatus}
@@ -94,6 +108,7 @@ function GameListItem({
                     value="visitor"
                     name={`radio-${id}`}
                     inputProps={{ 'aria-label': 'Visitor' }}
+                    disabled={status === 'Final' || !user}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -115,6 +130,7 @@ function GameListItem({
           </Card>
         </Grid>
       </Grid>
+      {/* <LoginPopup open={showLoginPopup} onClose={handleClosePopup} /> */}
     </ListItem>
   );
 }

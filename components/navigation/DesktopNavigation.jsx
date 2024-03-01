@@ -10,7 +10,7 @@ import {
   Button,
 } from '@/components/mui';
 import { useTheme } from '@mui/material/styles';
-
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 function DesktopNavigation({
   handleDrawerToggle = () =>
@@ -18,6 +18,8 @@ function DesktopNavigation({
 }) {
   const theme = useTheme();
   const lightTextColor = theme.palette.common.white;
+
+  const { user, error, isLoading } = useUser();
 
   const itemLinkStyles = {
     display: 'block',
@@ -59,7 +61,32 @@ function DesktopNavigation({
             >
               Games
             </Button>
-            
+            {user ? (
+              <>
+                <Button
+                  sx={{ color: lightTextColor }}
+                  component={Link}
+                  href="/profile"
+                >
+                  Profile
+                </Button>
+                <Button
+                  sx={{ color: lightTextColor }}
+                  component={Link}
+                  href="/api/auth/logout"
+                >
+                  Log out
+                </Button>
+              </>
+            ) : (
+              <Button
+                sx={{ color: lightTextColor }}
+                component={Link}
+                href="/api/auth/login"
+              >
+                Log in
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
