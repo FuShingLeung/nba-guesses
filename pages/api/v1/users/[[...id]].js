@@ -1,21 +1,32 @@
 import { createRouter, expressWrapper } from 'next-connect';
 import cors from 'cors';
 
-const router = createRouter();
+import {
+  updateUser,
+  removeUser,
+  getUsers,
+  addUser,
+} from '@/lib/api-functions/server/users/controllers';
+
+const router = createRouter({
+  attachParams: true,
+});
+const baseRoute = '/api/v1/users/:id?';
 
 router
+
   .use(expressWrapper(cors()))
-  .get((req, res) => {
-    res.send('GET');
+  .get(baseRoute, (req, res) => {
+    getUsers(req, res);
   })
-  .post((req, res) => {
-    res.json({ message: 'POST' });
+  .post(baseRoute, (req, res) => {
+    addUser(req, res);
   })
-  .put(async (req, res) => {
-    res.send('PUT');
+  .put(baseRoute, async (req, res) => {
+    updateUser(req, res);
   })
-  .delete(async (req, res) => {
-    res.send('DELETE');
+  .delete(baseRoute, async (req, res) => {
+    removeUser(req, res);
   });
 
 export default router.handler();
