@@ -61,10 +61,8 @@ export default function Games({ ssd = [] }) {
       <Layout>
         <Heading>Games</Heading>
         {!user && <Typography>Please log in to guess</Typography>}
-        <Grid container justifyContent="center" xs={12}>
-          <gridItem xs={8}>
-            <BasicDatePicker dateChange={handleDateChange} date={date} />
-          </gridItem>
+        <Grid container justifyContent="center">
+          <BasicDatePicker dateChange={handleDateChange} date={date} />
         </Grid>
         <GameList listOfGames={listOfGames} handleSubmit={handleSubmit} />
       </Layout>

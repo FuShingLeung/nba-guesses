@@ -9,7 +9,7 @@ import Heading from '@/components/Heading';
 import QueryBoundaries from '@/components/QueryBoundaries';
 
 import Table from '@/components/Table';
-import { Query } from 'mongoose';
+// import { Query } from 'mongoose';
 
 export default function Leaderboard() {
   const columns = [
@@ -20,79 +20,6 @@ export default function Leaderboard() {
     { field: 'accuracy', headerName: 'Success rate', width: 130 },
     { field: 'points', headerName: 'Points', width: 200 },
   ];
-
-  const rows = [];
-  // const rows = [
-  //   {
-  //     id: 1,
-  //     nickname: 'Bob',
-  //     totalGuesses: 52,
-  //     correctGuesses: 45,
-  //     accuracy: (45 / 52) * 100,
-  //   },
-  //   {
-  //     id: 2,
-  //     nickname: 2,
-  //     totalGuesses: 'Lannister',
-  //     correctGuesses: 'Cersei',
-  //     accuracy: 42,
-  //   },
-  //   {
-  //     id: 3,
-  //     nickname: 3,
-  //     totalGuesses: 'Lannister',
-  //     correctGuesses: 'Jaime',
-  //     accuracy: 45,
-  //   },
-  //   {
-  //     id: 4,
-  //     nickname: 4,
-  //     totalGuesses: 'Stark',
-  //     correctGuesses: 'Arya',
-  //     accuracy: 16,
-  //   },
-  //   {
-  //     id: 5,
-  //     nickname: 5,
-  //     totalGuesses: 'Targaryen',
-  //     correctGuesses: 'Daenerys',
-  //     accuracy: null,
-  //   },
-  //   {
-  //     id: 6,
-  //     nickname: 6,
-  //     totalGuesses: 'Melisandre',
-  //     correctGuesses: null,
-  //     accuracy: 150,
-  //   },
-  //   {
-  //     id: 7,
-  //     nickname: 7,
-  //     totalGuesses: 'Clifford',
-  //     correctGuesses: 'Ferrara',
-  //     accuracy: 44,
-  //   },
-  //   {
-  //     id: 8,
-  //     nickname: 8,
-  //     totalGuesses: 'Frances',
-  //     correctGuesses: 'Rossini',
-  //     accuracy: 36,
-  //   },
-  //   {
-  //     id: 9,
-  //     nickname: 9,
-  //     totalGuesses: 'Roxie',
-  //     correctGuesses: 'Harvey',
-  //     accuracy: 65,
-  //   },
-  // ];
-
-  // rows.forEach((row) => {
-  //   const { totalGuesses, correctGuesses } = row;
-  //   const accuracy = (correctGuesses / totalGuesses) * 100;
-  //   row.accuracy = isNaN(accuracy) ? null : `${accuracy.toFixed(1)}%`;
-  // });
 
   return (
     <>
