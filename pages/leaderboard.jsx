@@ -113,17 +113,26 @@ export default function Leaderboard() {
 }
 
 export async function getStaticProps(context) {
-  const users = await fetchUsers().catch((err) => console.log(err));
-  const queryClient = new QueryClient();
+  try {
+    const users = await fetchUsers();
+    const queryClient = new QueryClient();
 
-  await queryClient.setQueryData(
-    [STORAGE_KEY],
-    JSON.parse(JSON.stringify(users)),
-  );
+    await queryClient.setQueryData(
+      [STORAGE_KEY],
+      JSON.parse(JSON.stringify(users)),
+    );
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: {
+        error: err.message,
+      },
+    };
+  }
 }
