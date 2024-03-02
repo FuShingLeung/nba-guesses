@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DataGrid } from '@mui/x-data-grid';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -57,6 +58,7 @@ export {
   DatePicker,
   AdapterDayjs,
   LocalizationProvider,
+  DataGrid,
   Dialog,
   DialogTitle,
   DialogContent,

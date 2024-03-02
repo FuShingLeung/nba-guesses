@@ -57,6 +57,13 @@ function DesktopNavigation({
             <Button
               sx={{ color: lightTextColor }}
               component={Link}
+              href="/leaderboard"
+            >
+              Leaderboard
+            </Button>
+            <Button
+              sx={{ color: lightTextColor }}
+              component={Link}
               href="/games"
             >
               Games
