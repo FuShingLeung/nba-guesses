@@ -15,9 +15,10 @@ export default function Leaderboard() {
   const columns = [
     { field: 'id', headerName: 'Ranking', width: 100 },
     { field: 'nickname', headerName: 'Name', width: 200 },
-    { field: 'totalGuesses', headerName: 'Total guesses', width: 200 },
-    { field: 'correctGuesses', headerName: 'Correct guesses', width: 200 },
-    { field: 'accuracy', headerName: 'Success rate', width: 200 },
+    { field: 'totalGuesses', headerName: 'Total guesses', width: 130 },
+    { field: 'correctGuesses', headerName: 'Correct guesses', width: 130 },
+    { field: 'accuracy', headerName: 'Success rate', width: 130 },
+    { field: 'points', headerName: 'Points', width: 200 },
   ];
 
   const rows = [];
