@@ -7,35 +7,20 @@ import Table from '@/components/Table';
 
 export default function Leaderboard() {
   const columns = [
-    { field: 'id', headerName: 'Ranking', width: 70 },
-    { field: 'nickname', headerName: 'Name', width: 70 },
-    { field: 'totalGuesses', headerName: 'Total guesses', width: 130 },
-    { field: 'correctGuesses', headerName: 'Correct guesses', width: 130 },
-    { field: 'accuracy', headerName: 'Success rate', width: 130 },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 90,
-    },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
+    { field: 'id', headerName: 'Ranking', width: 100 },
+    { field: 'nickname', headerName: 'Name', width: 200 },
+    { field: 'totalGuesses', headerName: 'Total guesses', width: 200 },
+    { field: 'correctGuesses', headerName: 'Correct guesses', width: 200 },
+    { field: 'accuracy', headerName: 'Success rate', width: 200 },
   ];
 
   const rows = [
     {
       id: 1,
-      nickname: 1,
-      totalGuesses: 'Snow',
-      correctGuesses: 'Jon',
-      accuracy: 35,
+      nickname: 'Bob',
+      totalGuesses: 52,
+      correctGuesses: 45,
+      accuracy: (45 / 52) * 100,
     },
     {
       id: 2,
@@ -94,6 +79,12 @@ export default function Leaderboard() {
       accuracy: 65,
     },
   ];
+
+  rows.forEach((row) => {
+    const { totalGuesses, correctGuesses } = row;
+    const accuracy = (correctGuesses / totalGuesses) * 100;
+    row.accuracy = isNaN(accuracy) ? null : `${accuracy.toFixed(1)}%`;
+  });
 
   return (
     <>

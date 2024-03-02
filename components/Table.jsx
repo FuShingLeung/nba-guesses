@@ -12,7 +12,6 @@ function Table({ rows, columns }) {
         },
       }}
       pageSizeOptions={[5, 10]}
-      checkboxSelection
     />
   );
 }
