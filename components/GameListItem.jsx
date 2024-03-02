@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoginPopup from '@/components/LoginPopup';
 import {
   Grid,
   ListItem,
@@ -12,7 +13,6 @@ import dayjs from 'dayjs';
 import Heading from '@/components/Heading';
 import TeamLogo from './TeamLogo';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import LoginPopup from '@/components/LoginPopup';
 
 function GameListItem({
   id,
@@ -33,11 +33,13 @@ function GameListItem({
   const { user } = useUser();
 
   const handleGuess = (team) => {
-    if (!user && status !== 'Final') {
-      setShowLoginPopup(true);
-    } else {
       setSelectedTeam(team.target.value);
       onSubmit(id, team);
+  };
+
+  const handleOpenPopup = () => {
+    if (!user && status !== 'Final') {
+      setShowLoginPopup(true);
     }
   };
 
@@ -67,9 +69,6 @@ function GameListItem({
                   <Typography
                     variant="body1"
                     sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                       textAlign: 'center',
                       fontSize: 24,
                     }}
@@ -77,7 +76,7 @@ function GameListItem({
                     {home_team.full_name}
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={1} onClick={() => handleOpenPopup('home')}>
                   <Radio
                     checked={selectedTeam === 'home'}
                     onChange={handleGuess}
@@ -91,9 +90,6 @@ function GameListItem({
                   <Typography
                     variant="body1"
                     sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                       textAlign: 'center',
                       fontSize: status === 'Final' ? 24 : 12,
                     }}
@@ -101,7 +97,7 @@ function GameListItem({
                     {gameStatus}
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={1} onClick={() => handleOpenPopup('visitor')}>
                   <Radio
                     checked={selectedTeam === 'visitor'}
                     onChange={handleGuess}
@@ -115,9 +111,6 @@ function GameListItem({
                   <Typography
                     variant="body1"
                     sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                       textAlign: 'center',
                       fontSize: 24,
                     }}
@@ -130,7 +123,7 @@ function GameListItem({
           </Card>
         </Grid>
       </Grid>
-      {/* <LoginPopup open={showLoginPopup} onClose={handleClosePopup} /> */}
+      <LoginPopup open={showLoginPopup} onClose={handleClosePopup} />
     </ListItem>
   );
 }
