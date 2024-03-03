@@ -8,8 +8,8 @@ import {
   Toolbar,
   Typography,
   Button,
+  useTheme,
 } from '@/components/mui';
-import { useTheme } from '@mui/material/styles';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
 function DesktopNavigation({

@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import { Basic, Inter } from 'next/font/google';
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 
 import dayjs from 'dayjs';
 
