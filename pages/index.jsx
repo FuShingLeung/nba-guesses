@@ -1,11 +1,17 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import axios from 'axios';
+import usePostRequest from './api/v1/users/usePostRequest';
 
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
 
-export default function Home() {
+const Home = () => {
+  const { user } = useUser();
+
+  usePostRequest(user);
+
   return (
     <>
       <Head>
@@ -19,4 +25,6 @@ export default function Home() {
       </Layout>
     </>
   );
-}
+};
+
+export default Home;

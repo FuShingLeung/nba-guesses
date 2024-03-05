@@ -11,6 +11,7 @@ import Heading from '@/components/Heading';
 import { Grid, Typography } from '@mui/material';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
+import SubmitButton from '@/components/SubmitButton';
 
 const { BALLDONTLIE_ENDPOINT, BALLDONTLIE_API_KEY } = process.env;
 
@@ -64,6 +65,7 @@ export default function Games({ ssd = [] }) {
           <BasicDatePicker dateChange={handleDateChange} date={date} />
         </Grid>
         <GameList listOfGames={listOfGames} handleSubmit={handleSubmit} />
+        <SubmitButton />
       </Layout>
     </>
   );
