@@ -1,16 +1,24 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import axios from 'axios';
-import usePostRequest from './api/v1/users/usePostRequest';
 
 import Layout from '@/components/Layout';
 import Heading from '@/components/Heading';
+import { useState } from 'react';
+
+import { useAdd } from '@/lib/tq/users/mutations';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
+  const [shouldMutate, setShouldMutate] = useState(true);
   const { user } = useUser();
+  const router = useRouter();
+  const addMutation = useAdd();
 
-  usePostRequest(user);
+  if (user && shouldMutate) {
+    addMutation.mutate(user);
+    router.push('/');
+    setShouldMutate(false);
+  }
 
   return (
     <>

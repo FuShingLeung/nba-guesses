@@ -1,6 +1,5 @@
 import { createRouter, expressWrapper } from 'next-connect';
 import cors from 'cors';
-import { useState } from 'react';
 
 import {
   updateUser,

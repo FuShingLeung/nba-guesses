@@ -15,7 +15,7 @@ function Table({ columns }) {
       nickname: nickname,
       totalGuesses: totalGuesses,
       correctGuesses: correctGuesses,
-      accuracy: isNaN(accuracy) ? null : `${accuracy.toFixed(1)}%`,
+      accuracy: isNaN(accuracy) ? '0%' : `${accuracy.toFixed(1)}%`,
       points: points,
     };
   });
